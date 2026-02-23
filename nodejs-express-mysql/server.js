@@ -1,14 +1,19 @@
+// CI/CD trigger update
 const express = require("express");
 // const bodyParser = require("body-parser"); /* deprecated */
 const cors = require("cors");
 
 const app = express();
-
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
+ 
+/*
+  CORS Configuration
+  Allow requests from anywhere (for testing / ALB / S3 / Nginx)
+*/
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: false
+}));
 
 // parse requests of content-type - application/json
 app.use(express.json()); /* bodyParser.json() is deprecated */
